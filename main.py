@@ -51,7 +51,7 @@ def split_video_into_segments(input_path, segment_duration):
         print(f"Segment {i+1} gespeichert: {output_path}")
 
 # Beispielnutzung
-input_video_path = "input_video.mp4"  # Pfad zum Eingabevideo
-segment_length = 30  # Länge der Abschnitte in Sekunden
+input_video_path = "input.mp4"  # Pfad zum Eingabevideo
+segment_length = 180  # Länge der Abschnitte in Sekunden
 
 split_video_into_segments(input_video_path, segment_length)
