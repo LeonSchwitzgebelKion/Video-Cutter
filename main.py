@@ -4,7 +4,7 @@ from moviepy.editor import VideoFileClip
 def split_video_into_segments(input_path, segment_duration):
     """
     Teilt ein Video in Abschnitte einer bestimmten Länge und speichert diese Teile in einem Unterordner,
-    der den Namen des Eingabevideos trägt.
+    der den Namen des Eingabevideos trägt, mit maximaler Kompression.
     
     :param input_path: Pfad zum Eingabevideo.
     :param segment_duration: Länge der Abschnitte in Sekunden.
@@ -37,9 +37,17 @@ def split_video_into_segments(input_path, segment_duration):
         # Schneide das Video
         segment = video.subclip(start_time, end_time)
         
-        # Speichere das Segment
+        # Speichere das Segment mit maximaler Kompression
         output_path = os.path.join(output_folder, f"{input_filename}_segment_{i+1}.mp4")
-        segment.write_videofile(output_path, codec="libx264")
+        segment.write_videofile(
+            output_path, 
+            codec="libx264",
+            bitrate="500k",  # Beispiel-Bitrate für Kompression
+            audio_codec="aac",
+            temp_audiofile="temp-audio.m4a", 
+            remove_temp=True,
+            preset="slow"  # Langsame Kompression für bessere Qualität
+        )
         print(f"Segment {i+1} gespeichert: {output_path}")
 
 # Beispielnutzung
